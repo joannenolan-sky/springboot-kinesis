@@ -1,0 +1,16 @@
+server:
+  port: 58080
+
+
+management:
+  endpoints:
+    web:
+      base-path: /private
+      exposure.include: info
+
+app:
+  kinesisUri: http://localhost:4566
+  streamName: teststream
+  accessKey: test
+  secretAccessKey: test
+

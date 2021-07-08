@@ -1,0 +1,23 @@
+# Produce multiple messages onto Kinesis
+POST http://localhost:58080/messages
+Content-Type: application/json
+
+###
+# Produce a single message onto Kinesis
+POST http://localhost:58080/message
+Content-Type: application/json
+
+{
+  "header": {
+    "type": "blah",
+    "sourceId": "abc123456",
+    "task": "update"
+  },
+  "data": {
+    "uuid": "8839e902-5fca-4648-84a9-e58e014f8040",
+    "field1": "ab",
+    "field2": "bc",
+    "field3": "cd",
+    "fieldList": ["a", "b", "c"]
+  }
+}

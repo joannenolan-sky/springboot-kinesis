@@ -1,0 +1,39 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.0' apply false
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE' apply false
+}
+
+ext {
+    versions = [
+            springBoot       : '2.5.0',
+            awsJavaSdkKinesis: '1.12.14',
+            kinesisBinder    : '2.1.0',
+            kinesisClient    : '2.3.5',
+
+            junitJupiter     : '5.7.1',
+            logbackEncoder   : '6.6',
+
+            findbugs         : '3.0.1',
+            immutables       : '2.8.2'
+
+    ]
+}
+
+subprojects {
+    buildscript {
+        repositories {
+            jcenter()
+        }
+    }
+    repositories {
+        jcenter()
+    }
+
+    apply plugin: 'java'
+
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    compileJava.options.encoding = 'UTF-8'
+    compileTestJava.options.encoding = 'UTF-8'
+}
+

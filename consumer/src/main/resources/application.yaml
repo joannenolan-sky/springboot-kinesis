@@ -1,0 +1,55 @@
+server:
+  port: 48080
+
+management:
+  endpoints:
+    web:
+      base-path: /private
+      exposure.include: info
+
+info:
+  env:
+    java:
+      vendor: ${java.specification.vendor}
+      vm-name: ${java.vm.name}
+      runtime-version: ${java.runtime.version}
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        consume-in-0:
+          destination: teststream
+          group: teststream-group
+          content-type: application/json
+      kinesis:
+        binder:
+          kpl-kcl-enabled: true
+      # The following should be equivalent to the number of replicas. The downward API can be used to get this
+      # from the pod spec.
+      instance-count: 1
+      # The following should be equivalent to the pod ID. It is likely we will need to use stateful sets for
+      # high availability
+      instance-index: 0
+  jmx:
+    enabled: true
+
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      auto: false
+      static: us-east-1
+
+app:
+  kinesis:
+    accessKey: test
+    secretKey: test
+    kinesisUri: http://localhost:4566
+  dynamoDB:
+    uri: http://localhost:4566
+  cloudwatch:
+    uri: http://localhost:4566
+
+

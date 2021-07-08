@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: A sample template for creating a stack with a Kinesis Stream and a DynamoDB table.
+Resources:
+  AmazonKinesis:
+    Type: AWS::Kinesis::Stream
+    Properties:
+      Name: teststream
+      ShardCount: 1
+    DynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: testtable
+        AttributeDefinitions:
+          - AttributeName: "pk"
+            AttributeType: "S"
+        KeySchema:
+          - AttributeName: "pk"
+            KeyType: "HASH"
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
