@@ -14,4 +14,3 @@ awslocal cloudformation create-stack \
     --profile default
 
 fg %1
- ,µ
