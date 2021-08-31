@@ -5,10 +5,10 @@ script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 project_dir="${script_dir}/.."
 cd ${project_dir}
 
+echo ${project_dir}
 
-docker rmi localstack
+docker-compose -f ../localstack/docker-compose/docker-compose-localstack.yml down
+
 set -e
 
-docker build -t localstack . -t localstack.local
-
-docker run --rm -it -p 4566:4566 localstack.local AWS_CBOR_DISABLE=true 
+docker-compose -f ../localstack/docker-compose/docker-compose-localstack.yml up --build

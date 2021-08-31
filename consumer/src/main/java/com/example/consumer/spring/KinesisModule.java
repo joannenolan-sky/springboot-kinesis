@@ -16,7 +16,6 @@ import com.example.consumer.config.qualifiers.Cloudwatch;
 import com.example.consumer.config.qualifiers.DynamoDB;
 import com.example.consumer.config.qualifiers.Kinesis;
 import com.example.consumer.service.KinesisConsumerService;
-import org.springframework.cloud.aws.core.region.RegionProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -40,25 +39,25 @@ public class KinesisModule {
     @Bean
     @Kinesis
     EndpointConfiguration kinesisEndpointConfiguration(
-            Config config, RegionProvider regionProvider) {
+            Config config) {
         return new EndpointConfiguration(
-                config.getKinesis().getKinesisUri(), regionProvider.getRegion().getName());
+                config.getKinesis().getKinesisUri(), config.getKinesis().getSigningRegion());
     }
 
     @Bean
     @DynamoDB
     EndpointConfiguration dynamoDbEndpointConfiguration(
-            Config config, RegionProvider regionProvider) {
+            Config config) {
         return new EndpointConfiguration(
-                config.getDynamoDb().getUri(), regionProvider.getRegion().getName());
+                config.getDynamoDb().getUri(), config.getKinesis().getSigningRegion());
     }
 
     @Bean
     @Cloudwatch
     EndpointConfiguration cloudwatchEndpointConfiguration(
-            Config config, RegionProvider regionProvider) {
+            Config config) {
         return new EndpointConfiguration(
-                config.getCloudwatch().getUri(), regionProvider.getRegion().getName());
+                config.getCloudwatch().getUri(),config.getKinesis().getSigningRegion());
     }
 
     @Bean

@@ -6,9 +6,8 @@ plugins {
 ext {
     versions = [
             springBoot       : '2.5.0',
-            awsJavaSdkKinesis: '1.12.14',
-            kinesisBinder    : '2.1.0',
-            kinesisClient    : '2.3.5',
+            kinesisBinder    : '2.2.0',
+            kinesisClient    : '2.3.6',
 
             junitJupiter     : '5.7.1',
             logbackEncoder   : '6.6',

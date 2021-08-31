@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
+import software.amazon.awssdk.services.kinesis.model.KinesisException;
+import software.amazon.awssdk.services.kinesis.model.ProvisionedThroughputExceededException;
 import software.amazon.awssdk.services.kinesis.model.PutRecordRequest;
 
 import java.nio.charset.StandardCharsets;
@@ -16,7 +18,6 @@ import java.util.concurrent.ExecutionException;
 public class Producer {
     private final KinesisAsyncClient kinesisClient;
     private final Config config;
-
     private static final Logger log = LoggerFactory.getLogger(Producer.class);
 
     public Producer(KinesisAsyncClient kinesisClient, Config config) {
@@ -25,7 +26,7 @@ public class Producer {
     }
 
     public void produce() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             publishRecord(recordExample(i));
         }
     }
@@ -43,7 +44,12 @@ public class Producer {
             log.info("Interrupted, assuming shutdown.");
         } catch (ExecutionException e) {
             log.error("Exception while sending data to Kinesis. Will try again next cycle.", e);
+        } catch (ProvisionedThroughputExceededException e ){ //KinesisException
+            log.error("provisionedThroughputExceededException ", e);
+        }catch (KinesisException e){
+            log.error("KinesisException ", e);
         }
+
     }
 
     private String recordExample(int i) {

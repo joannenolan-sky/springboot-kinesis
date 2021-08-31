@@ -33,3 +33,76 @@ aws  --endpoint-url=http://localhost:4566 --region us-east-1 kinesis get-shard-i
 ```
 aws  --endpoint-url=http://localhost:4566 --region us-east-1 kinesis get-records --shard-iterator <USE_SHARD_ITERATOR_FROM_PERVIOUS_COMMAND>
 ```
+ - List DynamoDb tables 
+ ```
+aws --endpoint-url=http://localhost:4566 --region us-east-1 dynamodb list-tables
+```
+ - List Kinesis sreams
+ ```a
+aws --endpoint-url=http://localhost:4566 --region us-east-1 kinesis list-streams
+```
+ - List shards of the stream 
+ ```
+aws kinesis list-shards --endpoint-url=http://localhost:4566 --region us-east-1 --stream-name teststream  --exclusive-start-shard-id shardId-000000000000
+```
+
+ - List DynamoDb tables 
+ ```
+aws --endpoint-url=http://localhost:4566 --region us-east-1 dynamodb list-tables
+```
+ - List Kinesis sreams
+ ```a
+aws --endpoint-url=http://localhost:4566 --region us-east-1 kinesis list-streams
+```
+ - List shards of the stream 
+ ```
+aws kinesis list-shards --endpoint-url=http://localhost:4566 --region us-east-1 --stream-name teststream  --exclusive-start-shard-id shardId-000000000000
+```
+### Docker-Compose
+
+  - Start localstack using docker-compose
+```
+docker-compose -f localstack/docker-compose/docker-compose-localstack.yml up --build
+```
+
+
+### Kubernetes
+
+- Create deployment, service of NodePort type, persistent volume with persistent volume claim
+
+Use `kubernetes` profile to run application
+```
+kubectl apply -f localstack.yml
+```
+- Verify 
+```
+kubectl get pv -owide
+kubectl get pvc -owide
+kubectl get pods -owide
+
+```
+
+- Volumes
+
+   - Lits Persistent Volumes and Persistent Volumes Claims:
+
+```
+kubectl get pv
+kubectl get pvc
+```
+
+- Clean up
+
+   - Delete the Pod, the PersistentVolumeClaim and the PersistentVolume:
+```
+kubectl delete service/localstack
+kubectl delete deployment.apps/localstack
+kubectl delete pvc localstack-data-volume-claim
+kubectl delete pv localstack-data-volume
+```
+
+- Standalone pod with host volume 
+
+```
+kubectl apply -f pod.yml
+```

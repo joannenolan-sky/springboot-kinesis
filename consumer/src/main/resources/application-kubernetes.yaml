@@ -1,5 +1,5 @@
 server:
-  port: 48080
+  port: 8080
 
 management:
   endpoints:
@@ -46,11 +46,11 @@ app:
   kinesis:
     accessKey: test
     secretKey: test
-    kinesisUri: http://localhost:4566
+    kinesisUri: http://localhost:30000
     signingRegion: us-east-1
   dynamoDB:
-    uri: http://localhost:4566
+    uri: http://localhost:30000
   cloudwatch:
-    uri: http://localhost:4566
+    uri: http://localhost:30000
 
 

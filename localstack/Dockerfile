@@ -1,4 +1,4 @@
-FROM localstack/localstack:0.12.11
+FROM localstack/localstack:0.12.17
 
 COPY setup/aws/* aws/
 RUN mv aws/ ~/.aws
